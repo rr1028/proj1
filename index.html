@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Welcome</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- QRCode.js Library -->
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <script defer src="script.js"></script> <!-- External JS file to retrieve data -->
+    <!-- QR Code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body class="is-preload">
+
+<!-- Sidebar -->
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="#intro">Welcome</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Intro -->
+    <section id="intro" class="wrapper style1 fullscreen fade-up">
+        <div class="inner">
+            <h1 id="username"></h1>
+            <p>Here are your medical details:</p>
+
+            <!-- Medical Details -->
+            <ul>
+                <li><strong>Blood Type:</strong> <span id="bloodType"></span></li>
+                <li><strong>Height:</strong> <span id="height"></span></li>
+                <li><strong>Weight:</strong> <span id="weight"></span></li>
+                <li><strong>Allergies/Conditions:</strong> <span id="allergies"></span></li>
+            </ul>
+
+            <ul class="actions">
+                <li><a href="QR.html" class="button scrolly">Learn more</a></li>
+            </ul>
+
+  <!-- QR Code Section -->
+  <div id="qrcode" style="margin-top: 20px;"></div>
+</div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Add your footer here -->
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch stored data from localStorage
+            const name = localStorage.getItem("name");
+            const bloodType = localStorage.getItem("bloodType");
+            const height = localStorage.getItem("height");
+            const weight = localStorage.getItem("weight");
+            const allergies = localStorage.getItem("allergies");
+
+            // Display the fetched data
+            document.getElementById("username").textContent = name;
+            document.getElementById("bloodType").textContent = bloodType;
+            document.getElementById("height").textContent = height + " cm";
+            document.getElementById("weight").textContent = weight + " kg";
+            document.getElementById("allergies").textContent = allergies;
+
+            // Generate QR code with user information
+            const qrData = `Name: ${name}\nBlood Type: ${bloodType}\nHeight: ${height} cm\nWeight: ${weight} kg\nAllergies: ${allergies}`;
+            QRCode.toCanvas(document.getElementById('qrcode'), qrData, function (error) {
+                if (error) console.error(error)
+                console.log('QR code generated!')
+            });
+        });
+    </script>
+
+</body>
+</html>
